@@ -278,13 +278,24 @@ export default function NewsList({ user, activeCategory, isAdmin }) {
             <div>
               <h2 className="section-title">{searchTerm !== "" ? `Pencarian: "${searchTerm}"` : activeCategory === "Bookmark" ? "📌 Berita Tersimpan" : `Kategori: ${activeCategory.toUpperCase()}`}</h2>
               {filteredNews.length === 0 && <p style={{ color: "gray" }}>Belum ada berita di sini.</p>}
-              <div className="more-news-grid">
+            <div className="more-news-grid">
                 {filteredNews.map(n => (
                   <div key={n.id} className="news-card more-news-card" onClick={() => handleRead(n)} style={{ position: "relative" }}>
                     <button onClick={(e) => toggleBookmark(e, n)} className="btn-bookmark">{n.bookmarks?.includes(user?.uid) ? "📌" : "🔖"}</button>
                     <div className="badge-kategori">{n.category || "UMUM"}</div>
                     <img src={n.imageUrl} alt="News" />
-                    <div className="news-info"><h3 className="news-title" style={{ fontSize: "1.1rem" }}>{n.title}</h3></div>
+                    <div className="news-info">
+                      <h3 className="news-title" style={{ fontSize: "1.1rem" }}>{n.title}</h3>
+                      
+                      {/* 🔥 TOMBOL EDIT & HAPUS SEKARANG MUNCUL DI HASIL PENCARIAN */}
+                      {isAdmin && (
+                        <div style={{ marginTop: "10px", display: "flex", gap: "5px" }}>
+                          <button onClick={(e) => handleEdit(e, n)} className="btn btn-edit" style={{ padding: "4px 8px", fontSize: "11px" }}>EDIT</button>
+                          <button onClick={(e) => handleDelete(e, n.id)} className="btn btn-red" style={{ padding: "4px 8px", fontSize: "11px" }}>HAPUS</button>
+                        </div>
+                      )}
+                      
+                    </div>
                   </div>
                 ))}
               </div>
