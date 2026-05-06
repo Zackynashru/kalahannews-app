@@ -491,3 +491,65 @@ body.dark-mode {
   0% { transform: translateY(100px); opacity: 0; }
   100% { transform: translateY(0); opacity: 1; }
 }
+
+/* =========================================
+   📱 RESPONSIVE DESIGN (TAMPILAN MOBILE)
+   ========================================= */
+@media screen and (max-width: 768px) {
+  /* 1. Rombak Header biar nggak nabrak */
+  .header-container {
+    flex-direction: column;
+    text-align: center;
+    gap: 15px;
+    padding: 15px;
+  }
+  .logo {
+    font-size: 2.5rem;
+  }
+
+  /* 2. Rombak Navbar biar bisa di-swipe ke samping (Scroll Horizontal) */
+  .navbar {
+    overflow-x: auto;
+    white-space: nowrap;
+    justify-content: flex-start;
+    padding: 10px 15px;
+  }
+  /* Sembunyikan scrollbar jelek di navbar */
+  .navbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* 3. ROMBAK GRID: Paksa jadi 1 Kolom ke bawah! */
+  .news-grid {
+    grid-template-columns: 1fr; /* Jadi 1 kolom */
+    grid-template-rows: auto;
+  }
+  
+  .more-news-grid {
+    grid-template-columns: 1fr !important; /* Paksa 1 kolom */
+  }
+
+  /* 4. Sesuaikan Kartu Berita */
+  .main-news, .side-news, .more-news-card {
+    grid-column: 1 / -1; /* Penuhi lebar layar */
+    min-height: 250px;
+  }
+
+  /* 5. Sesuaikan ukuran teks Breaking News */
+  .ticker-label {
+    font-size: 0.8rem;
+    padding: 8px 10px;
+  }
+  .ticker-item {
+    font-size: 0.9rem;
+  }
+
+  /* 6. Sesuaikan Halaman Baca Berita */
+  .article-read h1 {
+    font-size: 1.8rem !important; /* Judul jangan terlalu raksasa di HP */
+  }
+  .admin-panel form {
+    display: flex;
+    flex-direction: column;
+  }
+}
