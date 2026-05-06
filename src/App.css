@@ -1,38 +1,493 @@
-.App {
-  text-align: center;
+/* src/App.css */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap');
+@font-face {
+  font-family: 'BodoniXT';
+  src: url('./fonts/BodoniXT.ttf') format('truetype');
+}
+body {
+  background-color: #f5f5f5;
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  padding: 0;
+  color: #333;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+/* --- HEADER & NAVBAR --- */
+.header-container {
+  background: white;
+  padding: 15px 40px;
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  border-bottom: 2px solid #ddd;
+}
+
+.logo {
+  font-family: 'BodoniXT', serif; /* Memanggil font Bodoni XT */
+  font-size: 2.8rem; /* Sedikit dibesarkan karena font serif biasanya lebih ramping */
+  font-weight: normal; /* Bodoni XT biasanya sudah tebal bawaannya */
+  letter-spacing: 1px; /* Memberi sedikit jarak antar huruf agar makin elegan */
+}
+
+.navbar {
+  background-color: #222;
+  padding: 15px 40px;
+  display: flex;
+  gap: 25px;
+  color: white;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  overflow-x: auto;
+}
+.navbar span { cursor: pointer; }
+.navbar span:hover { color: #e30613; }
+
+/* --- KONTEN UTAMA --- */
+.container {
+  max-width: 1200px;
+  margin: 30px auto;
+  padding: 0 20px;
+}
+
+/* --- CSS GRID UNTUK BERITA (ALA KOMPAS TV) --- */
+.news-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr; /* 1 besar kiri, 2 kecil kanan */
+  grid-auto-rows: 250px; /* Tinggi seragam */
+  gap: 15px;
+  margin-bottom: 40px;
+}
+
+/* Berita Utama di Kiri (Memakan 2 baris) */
+.main-news {
+  grid-column: 1 / 2;
+  grid-row: 1 / 3;
+}
+
+/* --- KARTU BERITA & OVERLAY --- */
+.news-card {
+  position: relative;
+  background: #000;
+  overflow: hidden;
+  border-radius: 4px;
+  transition: transform 0.2s;
+}
+.news-card:hover img {
+  transform: scale(1.05);
+  opacity: 0.9;
+}
+
+.news-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.7;
+  transition: all 0.3s ease;
+}
+
+.news-info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 20px;
+  background: linear-gradient(transparent, rgba(0,0,0,0.9));
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.main-news .news-title { font-size: 1.8rem; }
+.side-news .news-title { font-size: 1rem; }
+
+.news-title {
+  margin: 5px 0 0 0;
+  font-weight: 700;
+  line-height: 1.3;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.badge-kategori {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #e30613;
+  color: white;
+  padding: 5px 10px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  z-index: 10;
+}
+
+/* --- FORM & TOMBOL ADMIN --- */
+.admin-panel {
+  background: white;
+  padding: 25px;
+  border-top: 5px solid #0055a5;
+  margin-bottom: 30px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.form-input {
+  width: 100%; padding: 10px; margin-bottom: 15px;
+  border: 1px solid #ccc; box-sizing: border-box;
+}
+
+.btn {
+  padding: 8px 15px; font-weight: 700; cursor: pointer; border: none; color: white;
+}
+.btn-login { background: #0055a5; }
+.btn-logout { background: #555; }
+.btn-red { background: #e30613; }
+.btn-edit { background: #f39c12; }
+
+/* --- HALAMAN BACA ARTIKEL FULL --- */
+.article-read {
+  background: white;
+  padding: 40px;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  margin-bottom: 40px;
+}
+
+.article-read img {
+  width: 100%;
+  max-height: 500px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin: 20px 0;
+}
+
+.article-content {
+  font-size: 1.15rem;
+  line-height: 1.8;
+  color: #333;
+  white-space: pre-wrap; /* Mempertahankan enter/paragraf dari textarea */
+  font-family: 'Roboto', sans-serif;
+}
+
+/* Kursor menjadi tangan saat diletakkan di atas berita */
+.news-card {
+  cursor: pointer; 
+}
+
+/* --- FITUR PENCARIAN & BERITA LAINNYA --- */
+.search-container {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.search-input {
+  padding: 10px 15px;
+  width: 100%;
+  max-width: 350px;
+  border: 2px solid #ddd;
+  border-radius: 20px;
+  font-size: 1rem;
+  font-family: 'Roboto', sans-serif;
+  transition: all 0.3s;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #e30613; /* Warna merah saat diklik */
+  box-shadow: 0 0 5px rgba(227, 6, 19, 0.3);
+}
+
+.section-title {
+  border-left: 5px solid #e30613;
+  padding-left: 10px;
+  margin-top: 40px;
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.more-news-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 15px;
+  margin-bottom: 40px;
+}
+
+.more-news-card {
+  height: 200px; /* Grid yang lebih kecil untuk berita lama */
+}
+
+/* =========================================
+   🌙 DARK MODE STYLES
+   ========================================= */
+
+/* Mengubah warna background halaman dan teks utama */
+body.dark-mode {
+  background-color: #121212;
+  color: #e0e0e0;
+}
+
+/* Header atas berubah gelap */
+.dark-mode .header-container {
+  background-color: #1e1e1e;
+  border-bottom: 2px solid #333;
+}
+
+/* Agar tulisan KALAHAN tetap terbaca di background gelap */
+.dark-mode .logo-blue {
+  color: #64b5f6; 
+}
+
+/* Panel Admin (Form Tulis Berita) */
+.dark-mode .admin-panel {
+  background-color: #1e1e1e;
+  border-top: 5px solid #64b5f6;
+  box-shadow: 0 2px 5px rgba(255, 255, 255, 0.05);
+}
+
+/* Menggelapkan semua Input Form dan Search Bar */
+.dark-mode .form-input,
+.dark-mode .search-input {
+  background-color: #2c2c2c;
+  border: 1px solid #444;
+  color: #fff;
+}
+
+/* Warna tulisan bayangan di dalam input */
+.dark-mode .form-input::placeholder,
+.dark-mode .search-input::placeholder {
+  color: #aaa;
+}
+
+/* Halaman Baca Berita (Background putih diubah jadi gelap) */
+.dark-mode .article-read {
+  background-color: #1e1e1e;
+  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.05);
+}
+
+/* Warna isi teks berita dan judul */
+.dark-mode .article-content,
+.dark-mode p,
+.dark-mode small {
+  color: #ccc !important;
+}
+
+.dark-mode h1, 
+.dark-mode h2, 
+.dark-mode h3, 
+.dark-mode .section-title {
+  color: #fff;
+}
+
+/* =========================================
+   FITUR PREMIUM NEWS (DROP CAP & RELATED)
+   ========================================= */
+
+/* Dropcap: Huruf pertama artikel jadi besar ala Koran Cetak */
+.article-content::first-letter {
+  font-family: 'BodoniXT', serif; /* Memakai font logo yang sudah kamu pasang */
+  font-size: 4.5rem;
+  font-weight: normal;
+  color: #e30613; /* Warna merah KalahanNews */
+  float: left;
+  line-height: 0.8;
+  margin-top: 5px;
+  margin-right: 12px;
+}
+
+/* Garis pembatas untuk section "Baca Juga" */
+.related-section {
+  margin-top: 50px;
+  padding-top: 30px;
+  border-top: 2px dashed #ccc;
+}
+
+.dark-mode .related-section {
+  border-top: 2px dashed #444;
+}
+
+/* =========================================
+   FITUR SCROLL PROGRESS & VIEWS
+   ========================================= */
+
+/* Wadah transparan di paling atas layar */
+.scroll-progress-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background: transparent;
+  z-index: 9999;
+}
+
+/* Garis merah yang bergerak */
+.scroll-progress-bar {
+  height: 5px;
+  background: #e30613;
+  width: 0%; /* Ukuran awalnya 0 */
+  transition: width 0.1s ease-out;
+}
+
+/* =========================================
+   FITUR BREAKING NEWS & TRENDING
+   ========================================= */
+
+/* RUNNING TEXT (TICKER) */
+.ticker-wrap {
+  width: 100%;
+  background-color: #e30613;
+  color: white;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.ticker-label {
+  background: #000;
+  padding: 10px 20px;
+  font-weight: 900;
+  z-index: 10;
+  white-space: nowrap;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.ticker-move {
+  display: flex;
+  white-space: nowrap;
+  animation: ticker 25s linear infinite;
+}
+
+.ticker-move:hover {
+  animation-play-state: paused; /* Berhenti kalau disentuh mouse */
+}
+
+@keyframes ticker {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-150%); }
+}
+
+.ticker-item {
+  margin-right: 50px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.ticker-item:hover { text-decoration: underline; }
+
+/* TRENDING NEWS WIDGET */
+.trending-section {
+  background: #fff;
+  padding: 25px;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  margin-bottom: 40px;
+  border-top: 5px solid #f39c12; /* Aksen Oranye/Emas */
+}
+
+.dark-mode .trending-section {
+  background: #1e1e1e;
+}
+
+.trending-item {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 15px;
+  align-items: center;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 15px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.trending-item:hover { transform: translateX(10px); }
+.dark-mode .trending-item { border-color: #333; }
+.trending-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+
+.trending-number {
+  font-family: 'BodoniXT', serif;
+  font-size: 3.5rem;
+  font-weight: 900;
+  color: #f39c12;
+  line-height: 1;
+  opacity: 0.3;
+}
+
+/* =========================================
+   FITUR AI, BOOKMARK, & KOMENTAR
+   ========================================= */
+
+/* Kotak AI Summary */
+.ai-summary-box {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(168, 85, 247, 0.1));
+  border-left: 5px solid #a855f7;
+  padding: 20px;
+  border-radius: 0 8px 8px 0;
+  margin-bottom: 25px;
+  font-family: 'Roboto', sans-serif;
+}
+.ai-summary-title { font-weight: 900; color: #a855f7; margin-top: 0; display: flex; align-items: center; gap: 8px;}
+
+/* Tombol Bookmark di Grid */
+.btn-bookmark {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: rgba(255, 255, 255, 0.9);
+  border: none;
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  cursor: pointer;
+  z-index: 20;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  transition: all 0.2s;
+}
+.btn-bookmark:hover { transform: scale(1.1); }
+.dark-mode .btn-bookmark { background: rgba(30, 30, 30, 0.9); }
+
+/* Kolom Komentar */
+.comment-section {
+  margin-top: 50px;
+  padding-top: 30px;
+  border-top: 2px dashed #ccc;
+}
+.dark-mode .comment-section { border-top: 2px dashed #444; }
+.comment-card {
+  background: #f8f9fa;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+.dark-mode .comment-card { background: #2c2c2c; }
+.comment-header { font-weight: bold; font-size: 0.9rem; margin-bottom: 5px; color: #0055a5; }
+
+/* =========================================
+   FITUR TOAST NOTIFICATION (PENGGANTI ALERT)
+   ========================================= */
+.toast-container {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background: #333;
+  color: white;
+  padding: 15px 25px;
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  z-index: 99999;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  animation: slideInUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+.toast-container.success { background: #27ae60; border-left: 5px solid #2ecc71; }
+.toast-container.error { background: #c0392b; border-left: 5px solid #e74c3c; }
+
+@keyframes slideInUp {
+  0% { transform: translateY(100px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
 }
